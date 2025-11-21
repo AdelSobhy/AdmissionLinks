@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pathline Training Academy</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      color: #ffffff;
+      min-height: 100%;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    /* Header Styles */
+    header {
+      background: rgba(20, 20, 20, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(255, 43, 43, 0.1);
+      border-bottom: 1px solid rgba(255, 43, 43, 0.2);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-image {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #ff2b2b 0%, #d41f1f 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 43, 43, 0.4);
+    }
+
+    .site-title {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ff2b2b 0%, #ff6b6b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Scroll Instruction */
+    .scroll-instruction {
+      text-align: center;
+      padding: 40px 20px 20px;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-instruction p {
+      font-size: 18px;
+      color: #ff2b2b;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Container Styles */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+
+    /* Card Styles */
+    .card {
+      background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
+      border: 2px solid transparent;
+      border-radius: 20px;
+      padding: 40px 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: linear-gradient(135deg, #ff2b2b 0%, #d41f1f 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(255, 43, 43, 0.3);
+    }
+
+    .card-icon {
+      width: 100%;
+      height: 220px; /* taller image height - adjust as needed */
+      margin: 0 0 18px;
+      background: linear-gradient(135deg, rgba(255, 43, 43, 0.06) 0%, rgba(212, 31, 31, 0.04) 100%);
+      border-radius: 12px;
+      display: block;
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .card-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card:hover .card-icon {
+      background: linear-gradient(135deg, #ff2b2b 0%, #d41f1f 100%);
+      transform: scale(1.1);
+    }
+
+    .card h2 {
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    .card p {
+      color: #b0b0b0;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+      flex-grow: 1;
+    }
+
+    .card .enroll-link {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff2b2b 0%, #d41f1f 100%);
+      padding: 16px 32px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 43, 43, 0.3);
+      letter-spacing: 0.5px;
+      text-transform: none;
+      text-decoration: none;
+    }
+
+    .card .enroll-link:hover {
+      background: linear-gradient(135deg, #d41f1f 0%, #b01a1a 100%);
+      box-shadow: 0 6px 20px rgba(255, 43, 43, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .card .enroll-link:active {
+      transform: translateY(0);
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 40px;
+      background: rgba(10, 10, 10, 0.8);
+      color: #888888;
+      font-size: 14px;
+      border-top: 1px solid rgba(255, 43, 43, 0.1);
+      margin-top: 40px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .site-title {
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .scroll-instruction p {
+        font-size: 16px;
+      }
+
+      .container {
+        padding: 40px 20px;
+        gap: 20px;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <header>
+  <div class="logo-section">
+   <img src="P (1).png" alt="Pathline Academy Logo" class="logo-image">
+   <h1 class="site-title" id="site-title">Pathline Training Academy</h1>
+  </div>
+  </header>
+  <section class="scroll-instruction">
+   <p id="scroll-text">⬇️ Scroll down to explore all our training programs | سكرول تحت هتلاقي كل برامجنا التدريبية ⬇️</p>
+  </section>
+  <main>
+   <div class="container">
+    <div class="card">
+     <div>
+      <div class="card-icon">
+       <img src="jax-datascience.jpg" alt="Data icon" class="card-icon-img">
+      </div>
+      <h2 id="course1-title">Data Science Training | تدريب علم البيانات</h2>
+     </div><a href="https://docs.google.com/forms/d/e/1FAIpQLSeP2XePrctFCtHb2fdQUR0nsTUKkCn6Kv9c7akT2UPABXzhDA/viewform?usp=sf_link" target="_blank" rel="noopener noreferrer" class="enroll-link"> Enroll in Data Science | التسجيل في علم البيانات </a>
+    </div>
+    <div class="card">
+     <div>
+      <div class="card-icon">
+       <img src="Machine Learning Cover Image.webp" alt="Machine Learning icon" class="card-icon-img">
+      </div>
+      <h2 id="course2-title">Machine Learning Training | تدريب التعلم الآلي</h2>
+     </div><a href="https://docs.google.com/forms/d/e/1FAIpQLSeP2XePrctFCtHb2fdQUR0nsTUKkCn6Kv9c7akT2UPABXzhDA/viewform?usp=sf_link" target="_blank" rel="noopener noreferrer" class="enroll-link"> Enroll in Machine Learning | التسجيل في التعلم الآلي </a>
+    </div>
+    <div class="card">
+     <div>
+      <div class="card-icon">
+       <img src="is-web-development-dying.jpg" alt="Web Development icon" class="card-icon-img">
+      </div>
+      <h2 id="course3-title">Web Development Training | تدريب تطوير المواقع</h2>
+     </div><a href="https://docs.google.com/forms/d/e/1FAIpQLSeP2XePrctFCtHb2fdQUR0nsTUKkCn6Kv9c7akT2UPABXzhDA/viewform?usp=sf_link" target="_blank" rel="noopener noreferrer" class="enroll-link"> Enroll in Web Development | التسجيل في تطوير المواقع </a>
+    </div>
+    <div class="card">
+     <div>
+      <div class="card-icon">
+       <img src="Ethical-Hacking-Large.webp" alt="Cybersecurity icon" class="card-icon-img">
+      </div>
+      <h2 id="course4-title">Cybersecurity Training | تدريب الأمن السيبراني</h2>
+     </div><a href="https://docs.google.com/forms/d/e/1FAIpQLSc50TMzdR1JJXwo0oOFE52BI8NiCqxeIPQZWTvtujU692_zqw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer" class="enroll-link"> Enroll in Cybersecurity | التسجيل في الأمن السيبراني </a>
+    </div>
+   </div>
+  </main>
+  <footer id="footer-text">
+   © 2025 Pathline Training Academy | أكاديمية باث لاين للتدريب
+  </footer>
+  <script>
+    const defaultConfig = {
+      background_color: "#0a0a0a",
+      surface_color: "#1a1a1a",
+      text_color: "#ffffff",
+      primary_action_color: "#ff2b2b",
+      secondary_text_color: "#cccccc",
+      font_family: "Segoe UI",
+      font_size: 16,
+      site_title: "Pathline Training Academy | أكاديمية باث لاين للتدريب",
+      scroll_text: "⬇️ Scroll down to explore all our training programs | مرر لأسفل لاستكشاف جميع برامجنا التدريبية ⬇️",
+      course1_title: "Data Science Training | تدريب علم البيانات",
+      course1_description: "Master data analysis, statistics, and visualization to make data‑driven decisions. | أتقن تحليل البيانات والإحصاء والتصور لاتخاذ قرارات قائمة على البيانات.",
+      course2_title: "Machine Learning Training | تدريب التعلم الآلي",
+      course2_description: "Learn how to build intelligent models that learn, predict, and automate tasks. | تعلم كيفية بناء نماذج ذكية تتعلم وتتنبأ وتؤتمت المهام.",
+      course3_title: "Web Development Training | تدريب تطوير الويب",
+      course3_description: "Become a full‑stack web developer with hands‑on front‑end and back‑end skills. | كن مطور ويب متكامل مع مهارات عملية في الواجهة الأمامية والخلفية.",
+      course4_title: "Cybersecurity Training | تدريب الأمن السيبراني",
+      course4_description: "Gain essential skills to secure networks, systems, and digital infrastructures. | اكتسب المهارات الأساسية لتأمين الشبكات والأنظمة والبنى التحتية الرقمية.",
+      footer_text: "© 2025 Pathline Training Academy | أكاديمية باث لاين للتدريب"
+    };
+
+    async function onConfigChange(config) {
+      const baseFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'Tahoma, Geneva, Verdana, sans-serif';
+      const baseSize = config.font_size || defaultConfig.font_size;
+      
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryTextColor = config.secondary_text_color || defaultConfig.secondary_text_color;
+
+      document.body.style.fontFamily = `${baseFont}, ${baseFontStack}`;
+      document.body.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, ${surfaceColor} 100%)`;
+      document.body.style.color = textColor;
+
+      document.querySelector('header').style.background = `rgba(20, 20, 20, 0.95)`;
+      document.querySelector('header').style.borderBottom = `1px solid ${primaryActionColor}33`;
+
+      const logo = document.querySelector('.logo');
+      if (logo) {
+        logo.style.background = `linear-gradient(135deg, ${primaryActionColor} 0%, ${primaryActionColor}dd 100%)`;
+      }
+
+      const siteTitle = document.getElementById('site-title');
+      siteTitle.textContent = config.site_title || defaultConfig.site_title;
+      siteTitle.style.fontSize = `${baseSize * 1.75}px`;
+      siteTitle.style.background = `linear-gradient(135deg, ${primaryActionColor} 0%, ${primaryActionColor}aa 100%)`;
+      siteTitle.style.webkitBackgroundClip = 'text';
+      siteTitle.style.webkitTextFillColor = 'transparent';
+      siteTitle.style.backgroundClip = 'text';
+
+      const scrollText = document.getElementById('scroll-text');
+      scrollText.textContent = config.scroll_text || defaultConfig.scroll_text;
+      scrollText.style.fontSize = `${baseSize * 1.125}px`;
+      scrollText.style.color = primaryActionColor;
+
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        card.style.background = `linear-gradient(145deg, ${surfaceColor} 0%, ${backgroundColor} 100%)`;
+      });
+
+      const cardIcons = document.querySelectorAll('.card-icon');
+      cardIcons.forEach(icon => {
+        icon.style.background = `linear-gradient(135deg, ${primaryActionColor}33 0%, ${primaryActionColor}22 100%)`;
+      });
+
+      const cardTitles = document.querySelectorAll('.card h2');
+      cardTitles.forEach(title => {
+        title.style.color = textColor;
+        title.style.fontSize = `${baseSize * 1.625}px`;
+      });
+
+      const cardDescriptions = document.querySelectorAll('.card p');
+      cardDescriptions.forEach(desc => {
+        desc.style.color = secondaryTextColor;
+        desc.style.fontSize = `${baseSize}px`;
+      });
+
+      document.getElementById('course1-title').textContent = config.course1_title || defaultConfig.course1_title;
+      document.getElementById('course1-description').textContent = config.course1_description || defaultConfig.course1_description;
+      document.getElementById('course2-title').textContent = config.course2_title || defaultConfig.course2_title;
+      document.getElementById('course2-description').textContent = config.course2_description || defaultConfig.course2_description;
+      document.getElementById('course3-title').textContent = config.course3_title || defaultConfig.course3_title;
+      document.getElementById('course3-description').textContent = config.course3_description || defaultConfig.course3_description;
+      document.getElementById('course4-title').textContent = config.course4_title || defaultConfig.course4_title;
+      document.getElementById('course4-description').textContent = config.course4_description || defaultConfig.course4_description;
+
+      const enrollLinks = document.querySelectorAll('.card .enroll-link');
+      enrollLinks.forEach(link => {
+        link.style.background = `linear-gradient(135deg, ${primaryActionColor} 0%, ${primaryActionColor}dd 100%)`;
+        link.style.fontSize = `${baseSize}px`;
+      });
+
+      const footer = document.getElementById('footer-text');
+      footer.textContent = config.footer_text || defaultConfig.footer_text;
+      footer.style.fontSize = `${baseSize * 0.875}px`;
+      footer.style.borderTop = `1px solid ${primaryActionColor}1a`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ primary_action_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_text_color || defaultConfig.secondary_text_color,
+            set: (value) => {
+              config.secondary_text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ secondary_text_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["site_title", config.site_title || defaultConfig.site_title],
+        ["scroll_text", config.scroll_text || defaultConfig.scroll_text],
+        ["course1_title", config.course1_title || defaultConfig.course1_title],
+        ["course1_description", config.course1_description || defaultConfig.course1_description],
+        ["course2_title", config.course2_title || defaultConfig.course2_title],
+        ["course2_description", config.course2_description || defaultConfig.course2_description],
+        ["course3_title", config.course3_title || defaultConfig.course3_title],
+        ["course3_description", config.course3_description || defaultConfig.course3_description],
+        ["course4_title", config.course4_title || defaultConfig.course4_title],
+        ["course4_description", config.course4_description || defaultConfig.course4_description],
+        ["footer_text", config.footer_text || defaultConfig.footer_text]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a2346ca259aee8d',t:'MTc2Mzc2MDUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
